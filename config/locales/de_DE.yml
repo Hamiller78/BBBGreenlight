@@ -472,6 +472,7 @@ de_DE:
   password_empty_notice: Das Passwort kann nicht leer bleiben.
   password_reset_success: Passwort wurde zurückgesetzt.
   password_different_notice: Passwortbestätigung ist nicht zutreffend.
+  print: Drucken
   provider:
     google: Google
     office365: Office 365

@@ -51,6 +51,12 @@
                     <%= t("copy") %>
                   </button>
                 </div>
+                <div class="col-sm-6 mt-2">
+                  <button id="open-printpage" class="btn btn-primary btn-block" onclick="openPrintpage()">
+                    <i class="fas fa-print mr-1"></i>
+                    <%= t("print") %>
+                  </button>
+                </div>
                 <div class="col-sm-6 pl-0 mt-2">
                   <% if @room.access_code.present? %>
                     <input id="copy-code" value="<%= @room.access_code %>" type="hidden">
