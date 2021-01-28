@@ -147,5 +147,8 @@ Rails.application.routes.draw do
     end
   end
 
+  # Pages to print Information
+  get 'printinfo/:roomid', to: 'printinfo#show'
+
   root to: 'main#index'
 end

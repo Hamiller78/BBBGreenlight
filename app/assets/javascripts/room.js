@@ -183,9 +183,11 @@ function copyInvite() {
   }
 }
 
-function openPrintpage() {
-  var roomLink = document.getElementById('invite-url').value;
-  window.open("http://www.google.de", '_blank', 'location=yes,height=1200,width=500,status=yes');
+function openPrintpage(rooturl, roomid) {
+  console.log("rooturl: " + rooturl)
+  console.log("roomid: " + roomid);
+  window.open("/printinfo/" + roomid, '_blank', 'location=yes,height=1200,width=500,status=yes');
+//  window.open(rooturl + "/printinfo" + roomid, '_blank', 'location=yes,height=1200,width=500,status=yes');
 }
 
 function copyAccess() {

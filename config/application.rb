@@ -171,5 +171,8 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    # Enable public file server_rooms
+    config.public_file_server.enabled = "true"
   end
 end
