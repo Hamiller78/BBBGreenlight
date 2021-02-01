@@ -328,6 +328,12 @@ class RoomsController < ApplicationController
     redirect_to room_path(@room.uid)
   end
 
+  def printinfo
+    #@roomid = room_uid
+    @roomid = "/" + params[:room_uid]
+    logger.info "Given link: #{@roomid}"
+  end
+
   private
 
   def create_room_settings_string(options)
@@ -452,4 +458,5 @@ class RoomsController < ApplicationController
     end
   end
   helper_method :room_setting_with_config
+
 end

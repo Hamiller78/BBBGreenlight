@@ -52,7 +52,7 @@
                   </button>
                 </div>
                 <div class="col-sm-6 mt-2">
-                  <button id="open-printpage" class="btn btn-primary btn-block" onclick="openPrintpage('<%= request.base_url %>', '<%= @room.printinfo_path %>')">
+                  <button id="open-printpage" class="btn btn-primary btn-block" onclick="openPrintpage('<%= request.base_url + @room.invite_path %>')">
                     <i class="fas fa-print mr-1"></i>
                     <%= t("print") %>
                   </button>

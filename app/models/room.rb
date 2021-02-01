@@ -85,7 +85,7 @@ class Room < ApplicationRecord
 
   # Determines the printinfo path for the room
   def printinfo_path
-    "#{Rails.configuration.relative_url_root}/printinfo/#{CGI.escape(uid)}"
+    "#{Rails.configuration.relative_url_root}/#{CGI.escape(uid)}/printinfo"
   end
 
   # Notify waiting users that a meeting has started.
