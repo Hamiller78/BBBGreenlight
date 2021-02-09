@@ -1,0 +1,70 @@
+<head>
+  <title>Druckseite für BBB Schulungsraum</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="/print.css">
+  <link href="/css/fontawesome.css" rel="stylesheet">
+  <link href="/css/brands.css" rel="stylesheet">
+  <link href="/css/solid.css" rel="stylesheet">
+  <script defer src="/js/brands.js"></script>
+  <script defer src="/js/solid.js"></script>
+  <script defer src="/js/fontawesome.js"></script>
+  <script src="/qrcode.min.js"></script>
+  <script src="/jquery.min.js"></script>
+</head>
+<body>
+
+  <page size="A4">
+
+    <div class=row">
+      <h1 align="center">Room title</h1>
+    </div>
+
+  <div class=row" align="center">
+    <input id="text" type="text" value="<%= request.base_url + @room.invite_path %>"" style="width:80%" /><br />
+  </div>
+
+    <div class="row">
+      <div class="column" align=center">
+        <i class="fas fa-chalkboard-teacher fa-10x"></i>
+      </div>
+      <div class="column">
+        <div id="qrcode" style="width:300px; height:300px; margin-top:33px;"></div>
+      </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+      var qrcode = new QRCode(document.getElementById("qrcode"), {
+        width : 266,
+        height : 266
+      });
+
+      function makeCode () {
+        var elText = document.getElementById("text");
+
+        if (!elText.value) {
+          alert("Input a text");
+          elText.focus();
+          return;
+        }
+
+        qrcode.makeCode(elText.value);
+      }
+
+      makeCode();
+
+      $("#text").
+      on("blur", function () {
+        makeCode();
+      }).
+      on("keydown", function (e) {
+        if (e.keyCode == 13) {
+          makeCode();
+        }
+      });
+    </script>
+  </page>
+</body>
+</div>
