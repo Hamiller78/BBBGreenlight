@@ -332,6 +332,7 @@ class RoomsController < ApplicationController
     #@roomid = room_uid
     @roomid = "/" + params[:room_uid]
     logger.info "Given link: #{@roomid}"
+    render layout: "printinfo"
   end
 
   private

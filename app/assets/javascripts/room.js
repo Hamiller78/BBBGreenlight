@@ -185,7 +185,7 @@ function copyInvite() {
 
 function openPrintpage(roomurl) {
   console.log("roomurl: " + roomurl)
-  window.open(roomurl + '/printinfo', '_blank', 'location=yes,height=1200,width=500,status=yes');
+  window.open(roomurl + '/printinfo', '_blank', 'location=yes,height=1250,width=900,status=yes');
 //  window.open(rooturl + "/printinfo" + roomid, '_blank', 'location=yes,height=1200,width=500,status=yes');
 }
 

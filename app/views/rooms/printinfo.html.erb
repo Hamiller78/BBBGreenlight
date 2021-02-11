@@ -1,51 +1,41 @@
-<head>
-  <!--link rel="stylesheet" media="print" href="printinfo.css"-->
-  <!--%= stylesheet_link_tag "printinfo" %-->
-  <title>Cross-Browser QRCode generator for Javascript</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
-</head>
-<body>
+<div class="book">
+  <div class="page">
+    <div class="subpage">
+      <h1 align="center">Sprachunterricht deutsch <i class="far fa-comment"></i></h1>
+      <h1 align="center">Language course german</h1>
 
-  <input id="text" type="text" value="<%= request.base_url + @room.invite_path %>"" style="width:80%" /><br />
+      <span style="display:block; height: 1cm;"></span>
 
-  <div class="row">
-    <div class="column">
-      Test
-    </div>
-    <div class="column">
-      <div id="qrcode" style="width:300px; height:300px; margin-top:33px;"></div>
+      <div class="column">
+        <i class="fas fa-chalkboard-teacher fa-10x"></i>
+       </div>
+       <h4>
+         Bitte scannen Sie den QR-Code zu den Kurszeiten, um an dem Sprachunterricht teilzunehmen!<br>
+         <br>
+         Please scan the QR code at the bottom to join the language course at the scheduled hours!
+       </h4>
+
+      <span style="display:block; height: 2cm;"></span>
+
+      <input id="text" type="text" value="www.google.de" style="width:100%" /><br />
+
+      <div class="row">
+        <div id="qrcode" style="width:500px; height:500px; margin-top:20px"></div>
+      </div>
+
+      <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+          width : 400,
+          height : 400
+        });
+
+        function makeCode () {
+          var elText = document.getElementById("text");
+          qrcode.makeCode(elText.value);
+        }
+
+        makeCode();
+      </script>
     </div>
   </div>
-
-  <script type="text/javascript">
-    var qrcode = new QRCode(document.getElementById("qrcode"), {
-	     width : 266,
-	     height : 266
-     });
-
-     function makeCode () {
-	      var elText = document.getElementById("text");
-
-	       if (!elText.value) {
-		         alert("Input a text");
-		         elText.focus();
-		     return;
-	   }
-
-	   qrcode.makeCode(elText.value);
-}
-
-makeCode();
-
-$("#text").
-	on("blur", function () {
-		makeCode();
-	}).
-	on("keydown", function (e) {
-		if (e.keyCode == 13) {
-			makeCode();
-		}
-	});
-</script>
-</body>
+</div>
