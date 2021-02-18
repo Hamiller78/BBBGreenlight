@@ -6,21 +6,29 @@
 
       <span style="display:block; height: 1cm;"></span>
 
-      <div class="column">
-        <i class="fas fa-chalkboard-teacher fa-10x"></i>
+      <div class="column" style="margin-left: 1cm">
+        <h2><%= @room.name %></h2>
+      </div>
+
+      <span style="display:block; height: 1cm;"></span>
+
+      <div class="row">
+        <div class="column" >
+          <i class="fas fa-chalkboard-teacher fa-10x" style="margin-left: 1cm;margin-right: 1cm"></i>
+        </div>
+        <div class="column">
+          Bitte scannen Sie den QR-Code zu den Kurszeiten, um an dem Sprachunterricht teilzunehmen!<br>
+          <br>
+          Please scan the QR code at the bottom to join the language course at the scheduled hours!
+        </div>
        </div>
-       <h4>
-         Bitte scannen Sie den QR-Code zu den Kurszeiten, um an dem Sprachunterricht teilzunehmen!<br>
-         <br>
-         Please scan the QR code at the bottom to join the language course at the scheduled hours!
-       </h4>
 
       <span style="display:block; height: 2cm;"></span>
 
-      <input id="text" type="text" value="www.google.de" style="width:100%" /><br />
+      <input id="text" type="text" value="<%= request.base_url + @room.invite_path %>" style="width:100%" /><br />
 
       <div class="row">
-        <div id="qrcode" style="width:500px; height:500px; margin-top:20px"></div>
+        <div id="qrcode" style="width:500px; height:500px; margin-top:20px; margin-left:auto; margin-right: auto"></div>
       </div>
 
       <script type="text/javascript">

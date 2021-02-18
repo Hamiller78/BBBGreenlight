@@ -35,7 +35,6 @@ html {
 
 /* Two image containers */
 .column {
-  float: left;
   width: 8cm;
   padding: 1cm;
   text-align: center;
