@@ -83,6 +83,11 @@ class Room < ApplicationRecord
     "#{Rails.configuration.relative_url_root}/#{CGI.escape(uid)}"
   end
 
+  # Determines the printinfo path for the room
+  def printinfo_path
+    "#{Rails.configuration.relative_url_root}/#{CGI.escape(uid)}/printinfo"
+  end
+
   # Notify waiting users that a meeting has started.
   def notify_waiting
     ActionCable.server.broadcast("#{uid}_waiting_channel", action: "started")

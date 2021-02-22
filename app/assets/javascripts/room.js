@@ -95,9 +95,9 @@ $(document).on('turbolinks:load', function(){
             })
             // Only refresh the select dropdown if there are results to show
             $('#share-room-select').selectpicker('refresh');
-          } 
+          }
           $(".bs-searchbox").siblings().show()
-        })     
+        })
       }
     })
 
@@ -181,6 +181,12 @@ function copyInvite() {
       copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("copy"))
     }, 1000)
   }
+}
+
+function openPrintpage(roomurl) {
+  console.log("roomurl: " + roomurl)
+  window.open(roomurl + '/printinfo', '_blank', 'location=yes,height=1250,width=900,status=yes');
+//  window.open(rooturl + "/printinfo" + roomid, '_blank', 'location=yes,height=1200,width=500,status=yes');
 }
 
 function copyAccess() {
@@ -344,10 +350,10 @@ function updatePreuploadPresentationModal(target) {
       $("#use-pres").show()
     }
   });
-  
+
   $("#preuploadPresentationModal form").attr("action", $(target).data("path"))
   $("#remove-presentation").data("remove",  $(target).data("remove"))
-  
+
   // Reset values to original to prevent confusion
   $("#presentation-upload").val("")
   $("#presentation-upload-label").text($("#presentation-upload-label").data("placeholder"))
@@ -394,6 +400,6 @@ function filterRooms() {
 }
 
 function clearRoomSearch() {
-  $('#room-search').val(''); 
+  $('#room-search').val('');
   filterRooms()
 }

@@ -318,7 +318,7 @@ de_DE:
     search:
       start: Suche beginnen...
   landing:
-    about: "Das Deutsche Rote Kreuz bietet auf dieser Seite ein Webkonferenzsystem für Sprachkurse an. Verwendet wird das Webkonferenzsystem BigBlueButton mit der Oberfläche Greenlight."
+    about: "Das Deutsche Rote Kreuz bietet auf dieser Seite ein Konferenzsystem für Sprachkurse an."
     welcome: Willkommen zur Sprachunterrichtsseite des DRK.
     video: Schauen Sie sich die Anleitung zur Verwendung von Greenlight an
     upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
@@ -472,6 +472,7 @@ de_DE:
   password_empty_notice: Das Passwort kann nicht leer bleiben.
   password_reset_success: Passwort wurde zurückgesetzt.
   password_different_notice: Passwortbestätigung ist nicht zutreffend.
+  print: Drucken
   provider:
     google: Google
     office365: Office 365
