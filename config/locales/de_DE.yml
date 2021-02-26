@@ -393,6 +393,7 @@ de_DE:
       create: Raum erstellen
       free_delete: Sie können den Raum jederzeit wieder löschen.
       name_placeholder: Geben Sie einen Raumnamen ein...
+      description_placeholder: Geben Sie eine Beschreibung ein...
       not_blank: Es muss ein Raumname angegeben werden.
       title: Neuen Raum erstellen
     delete_account:

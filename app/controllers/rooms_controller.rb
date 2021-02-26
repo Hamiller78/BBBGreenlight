@@ -44,7 +44,7 @@ class RoomsController < ApplicationController
     return redirect_to current_user.main_room, flash: { alert: I18n.t("room.room_limit") } if room_limit_exceeded
 
     # Create room
-    @room = Room.new(name: room_params[:name], access_code: room_params[:access_code])
+    @room = Room.new(name: room_params[:name], description: room_params[:description], access_code: room_params[:access_code])
     @room.owner = current_user
     @room.room_settings = create_room_settings_string(room_params)
 
@@ -196,12 +196,14 @@ class RoomsController < ApplicationController
     begin
       options = params[:room].nil? ? params : params[:room]
       raise "Room name can't be blank" if options[:name].blank?
+      raise "Room description can't be blank" if options[:description].blank?
 
       # Update the rooms values
       room_settings_string = create_room_settings_string(options)
 
       @room.update_attributes(
         name: options[:name],
+        description: optins[:description],
         room_settings: room_settings_string,
         access_code: options[:access_code]
       )
@@ -225,7 +227,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  # POST /:room_uid/preupload_presenstation
+  # POST /:room_uid/preupload_presentation
   def preupload_presentation
     begin
       raise "Invalid file type" unless valid_file_type
@@ -240,7 +242,7 @@ class RoomsController < ApplicationController
     redirect_back fallback_location: room_path(@room)
   end
 
-  # POST /:room_uid/remove_presenstation
+  # POST /:room_uid/remove_presentation
   def remove_presentation
     begin
       @room.presentation.purge
@@ -329,7 +331,6 @@ class RoomsController < ApplicationController
   end
 
   def printinfo
-    #@roomid = room_uid
     @roomid = "/" + params[:room_uid]
     logger.info "Given link: #{@roomid}"
     render layout: "printinfo"
@@ -350,7 +351,7 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
+    params.require(:room).permit(:name, :description, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
       :recording, :presentation)
   end
