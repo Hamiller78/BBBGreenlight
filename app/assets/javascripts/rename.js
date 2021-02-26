@@ -121,9 +121,12 @@ $(document).on('turbolinks:load', function(){
     // Apply ajax request depending on the element that triggered the event
     var submit_rename_request = function(element){
       if(element.is('#room-title')){
+        console.log('New title: ' + element.find('#user-text').text());
+        console.log('Description: ' + $("#room-description").val());
         submit_update_request({
           setting: "rename_header",
           name: element.find('#user-text').text(),
+          description: $("#room-description").val(),
         }, element.data('path'), "POST");
       }
       else if(element.is('#recording-title')){

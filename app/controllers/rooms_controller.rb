@@ -203,7 +203,7 @@ class RoomsController < ApplicationController
 
       @room.update_attributes(
         name: options[:name],
-        description: optins[:description],
+        description: options[:description],
         room_settings: room_settings_string,
         access_code: options[:access_code]
       )
