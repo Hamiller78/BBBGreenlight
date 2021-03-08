@@ -24,14 +24,21 @@
     <div class="row pt-7 pt-sm-9 mb-7">
       <div class="col-lg-9 col-sm-12">
         <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>" data-path="<%= update_settings_path(@room) %>">
-           <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= title(@room.name) %></h1>
+          <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= title(@room.name) %></h1>
           <% if current_user.main_room == @room %>
             <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-2"></i></a>
           <% else %>
             <a><i id="edit-room" class="fa fa-edit align-top home-indicator ml-2" data-edit-room="<%= @room.uid %>"></i></a>
           <% end %>
         </div>
-        <textarea readonly id="room-description" cols="40" rows="5"><%= @room.description%></textarea>
+        <div id="room-description" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>" data-path="<%= update_settings_path(@room) %>">        
+          <% if current_user.main_room == @room %>
+            <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-4"></i></a>
+          <% else %>
+            <a><i id="edit-description" class="fa fa-edit align-top home-indicator ml-4" data-edit-description="<%= @room.uid %>"></i></a>
+          <% end %>
+          <textarea contenteditable=false readonly=true id="user-description" cols="40" rows="5"><%= @room.description%></textarea>          
+        </div>        
         <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %><% unless hide_recording_tables %> | <%= @recordings.length %> <%= t("room.recordings") %><% end %></h4>
         <% unless exceeds_limit %>
           <label class="form-label"><%= t("room.invite_participants") %></label>
