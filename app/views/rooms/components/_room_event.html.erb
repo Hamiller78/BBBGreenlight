@@ -36,7 +36,13 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <%= yield %>
       </div>
+
+      </div class="row">
+        <textarea contenteditable=false readonly=true id="user-description" cols="40" rows="5"><%= @room.description%></textarea>
+      <div class="row">
+
     </div>
+
   </div>
 </div>
 
