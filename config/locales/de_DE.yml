@@ -304,6 +304,7 @@ de_DE:
       settings: Profil
       signout: Abmelden
   home_room: Startraum
+  default_description: "Beschreibung des Raums.\nKann beispielsweise für Terminangaben oder Abwesenheitsnotizen genutzt werden."
   info_update_success: Information erfolgreich aktualisiert.
   invalid_credentials: "Die eingegebene E-Mail und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder wählen Sie die Option Ihr Passwort zurückzusetzen, falls Sie es vergessen haben."
   invalid_login_method: Die Anmeldung scheiterte aufgrund einer Unstimmigkeit mit dem Konto. Sie müssen sich mit Omniauth anmelden.
