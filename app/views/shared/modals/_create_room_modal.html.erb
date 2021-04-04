@@ -95,14 +95,14 @@
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
               <span class="custom-switch-indicator float-right cursor-pointer"></span>
             </label>
-          <div class="mt-4">
-            <%= f.submit t("modal.create_room.create"), class: "create-only btn btn-primary create-room-button" %>
-            <%= f.submit t("modal.room_settings.update"), class: "update-only btn btn-primary create-room-button" %>
+            <div class="mt-4">
+              <%= f.submit t("modal.create_room.create"), class: "create-only btn btn-primary create-room-button" %>
+              <%= f.submit t("modal.room_settings.update"), class: "update-only btn btn-primary create-room-button" %>
 
-            <button type="button" class="btn btn-secondary create-room-button" data-dismiss="modal">
-              <%= t("cancel") %>
-            </button>
-          </div>
+              <button type="button" class="btn btn-secondary create-room-button" data-dismiss="modal">
+                <%= t("cancel") %>
+              </button>
+            </div>
           <% end %>
         </div>
         <div class="card-footer">
