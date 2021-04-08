@@ -30,8 +30,6 @@ $(document).on('turbolinks:load', function(){
         // Remove current window events
         $(window).off('mousedown keydown');
 
-        console.log('Event for room name events fired.');
-
         if(e.type == 'focusout'){
           submit_rename_request(room_title);
           return;
@@ -55,46 +53,9 @@ $(document).on('turbolinks:load', function(){
       });
 
       room_title.find('.fa-edit').on('click', function(e){
-        console.log('Edit icon clicked!');
         register_room_title_event(e);
       });
     }
-
-    // Set a room description change event (similar to room name)
-    var configure_room_description = function(room_description){
-
-      function register_room_description_event(e){
-        // Remove current window events
-        $(window).off('mousedown keydown');
-
-        console.log('Event for room description events fired.');
-
-        if(e.type == 'focusout'){
-          submit_rename_request(room_description);
-          return;
-        }
-
-        room_description.find("#user-description").attr("contenteditable", true);
-        room_description.find("#user-description").attr("readonly", false);
-        // room_description.find("#user-description").focus();
-
-        // Stop automatic refresh
-        e.preventDefault();
-
-        register_window_event(room_description, 'user-description', '#edit-description', 'edit-description');
-      }
-
-      room_description.find('#user-description').on('dblclick focusout', function(e){
-        if(room_description.find('#edit-description').length){
-          console.log('Description editing icon element found!');          
-          register_room_description_event(e);
-        }
-      });
-
-      room_description.find('#edit-description').on('click', function(e){
-        register_room_description_event(e);
-      });
-    }    
 
     // Set a recording row rename event
     var configure_recording_row = function(recording_title){
@@ -159,9 +120,7 @@ $(document).on('turbolinks:load', function(){
 
     // Apply ajax request depending on the element that triggered the event
     var submit_rename_request = function(element){
-      if(element.is('#room-title') || element.is('#room-description')){
-        console.log('New title: ' + $('#user-text').text());
-        console.log('Description: ' + $("#user-description").val());
+      if(element.is('#room-title')){
         submit_update_request({
           setting: "rename_header",
           name: $('#user-text').text(),
@@ -190,12 +149,10 @@ $(document).on('turbolinks:load', function(){
 
     // Elements that can be renamed
     var room_title = $('#room-title');
-    var room_description = $('#room-description');
     var recording_rows = $('#recording-table').find('tr');
 
     // Configure renaming for room header
     configure_room_header(room_title);
-    configure_room_description(room_description);
 
     // Configure renaming for recording rows
     recording_rows.each(function(){
