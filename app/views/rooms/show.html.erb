@@ -33,18 +33,7 @@
         </div>
         <div id="room-description" class="form-inline" data-path="<%= update_settings_path(@room) %>">        
           <textarea contenteditable=false readonly=true id="user-description" cols="64" rows="5"><%= @room.description%></textarea>          
-        </div>
-        <% if current_user.main_room != @room %>
-          <div class="col-sm-6 mt-2">
-            <button id="edit-roomsettings"
-                    class="btn btn-primary btn-block update-room"
-                    data-toggle="modal"
-                    data-target="#createRoomModal"
-                    data-settings-path="<%= room_settings_path(@room) %>">
-                    <%= t("room.settings") %>
-            </button>
-          </div>
-        <% end %>     
+        </div>    
         <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %><% unless hide_recording_tables %> | <%= @recordings.length %> <%= t("room.recordings") %><% end %></h4>
         <% unless exceeds_limit %>
           <label class="form-label"><%= t("room.invite_participants") %></label>
