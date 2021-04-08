@@ -304,6 +304,7 @@ de_DE:
       settings: Profil
       signout: Abmelden
   home_room: Startraum
+  default_description: "Beschreibung des Raums.\nKann beispielsweise für Terminangaben oder Abwesenheitsnotizen genutzt werden."
   info_update_success: Information erfolgreich aktualisiert.
   invalid_credentials: "Die eingegebene E-Mail und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder wählen Sie die Option Ihr Passwort zurückzusetzen, falls Sie es vergessen haben."
   invalid_login_method: Die Anmeldung scheiterte aufgrund einer Unstimmigkeit mit dem Konto. Sie müssen sich mit Omniauth anmelden.
@@ -393,6 +394,7 @@ de_DE:
       create: Raum erstellen
       free_delete: Sie können den Raum jederzeit wieder löschen.
       name_placeholder: Geben Sie einen Raumnamen ein...
+      description_placeholder: Geben Sie eine Beschreibung ein...
       not_blank: Es muss ein Raumname angegeben werden.
       title: Neuen Raum erstellen
     delete_account:

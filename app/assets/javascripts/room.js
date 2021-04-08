@@ -186,7 +186,6 @@ function copyInvite() {
 function openPrintpage(roomurl) {
   console.log("roomurl: " + roomurl)
   window.open(roomurl + '/printinfo', '_blank', 'location=yes,height=1250,width=900,status=yes');
-//  window.open(rooturl + "/printinfo" + roomid, '_blank', 'location=yes,height=1200,width=500,status=yes');
 }
 
 function copyAccess() {
@@ -205,6 +204,7 @@ function copyAccess() {
 }
 
 function showCreateRoom(target) {
+  console.log("showCreateRoom called")
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
   $("#room_access_code").val(null)
@@ -230,10 +230,15 @@ function showCreateRoom(target) {
 }
 
 function showUpdateRoom(target) {
+  console.log("showUpdateRoom() called")
   var modal = $(target)
   var update_path = modal.closest(".room-block").data("path")
   var settings_path = modal.data("settings-path")
+  console.log("settings_path: " + settings_path)
+  var myroomblock = modal.closest(".room-block")
+  console.log("Room block: " + myroomblock)
   $("#create-room-name").val(modal.closest(".room-block").find(".room-name-text").text().trim())
+  $("#create-room-description").val(modal.closest(".room-block").data("room-description"))
   $("#createRoomModal form").attr("action", update_path)
 
   //show all elements & their children with a update-only class
@@ -249,6 +254,9 @@ function showUpdateRoom(target) {
   })
 
   updateCurrentSettings(settings_path)
+
+  var description = modal.closest(".room-block").data("room-description")
+  console.log("Room description: " + description)
 
   var accessCode = modal.closest(".room-block").data("room-access-code")
 
