@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   match '/404', to: 'errors#not_found', via: :all, as: :not_found
   match '/500', to: 'errors#internal_error', via: :all, as: :internal_error
 
+  # legal
+  get '/privacypolicy', to: 'legal#privacypolicy'
+
   # Signin/Signup routes.
   get '/signin', to: 'sessions#signin', as: :signin
   get '/signup', to: 'sessions#new', as: :signup
