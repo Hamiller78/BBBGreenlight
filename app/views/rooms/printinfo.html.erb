@@ -10,33 +10,32 @@
 
       <span style="display:block; height: 1cm;"></span>
 
+      <!-- Course/room name -->
       <div class="column" style="margin-left: 1cm">
         <h2><%= @room.name %></h2>
       </div>
 
-      <span style="display:block; height: 1cm;"></span>
-
-      <div class="row">
-        <div class="column" >
-          <i class="fas fa-chalkboard-teacher fa-10x" style="margin-left: 1cm;margin-right: 1cm"></i>
-        </div>
-        <div class="column" style="white-space: pre-line;">
-          <%= @room.description %>
-        </div>
-       </div>
-
-      <span style="display:block; height: 2cm;"></span>
-
+      <!-- Input field which displays link, the value is read as the source for the QR code -->
       <input id="text" type="text" value="<%= request.base_url + @room.invite_path %>" style="width:100%" /><br />
 
+      <!-- Element which is the target to paint the QR code -->
       <div class="row">
-        <div id="qrcode" style="width:500px; height:500px; margin-top:20px; margin-left:auto; margin-right: auto"></div>
+        <div id="qrcode" style="width:200px; height:200px; margin-top:20px; margin-left:auto; margin-right: auto"></div>
       </div>
 
+      <span style="display:block; height: 1cm;"></span>
+
+      <img src="/BMIBHFoerder_Logo.png" alt="Hier sollte Bundesministeriumslogo zu sehen sein." width="200" align="right">
+
+      <div style="white-space: pre-line; font-size:150%">
+        <%= @room.description %>
+      </div>
+
+      <!-- script call to QR code generator library -->
       <script type="text/javascript">
         var qrcode = new QRCode(document.getElementById("qrcode"), {
-          width : 300,
-          height : 300
+          width : 200,
+          height : 200
         });
 
         function makeCode () {
