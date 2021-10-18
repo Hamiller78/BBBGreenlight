@@ -20,16 +20,15 @@
 
       <!-- Element which is the target to paint the QR code -->
       <div class="row">
-        <div id="qrcode" style="width:200px; height:200px; margin-top:20px; margin-left:auto; margin-right: auto"></div>
+        <div id="qrcode" style="width:200px; height:200px; margin-top:20px; margin-left: 1cm; margin-right: 1cm"></div>
+        <div style="white-space: pre-line; font-size:150%">
+          <%= @room.description %>
+        </div>
       </div>
 
       <span style="display:block; height: 1cm;"></span>
 
       <img src="/BMIBHFoerder_Logo.png" alt="Hier sollte Bundesministeriumslogo zu sehen sein." width="200" align="right">
-
-      <div style="white-space: pre-line; font-size:150%">
-        <%= @room.description %>
-      </div>
 
       <!-- script call to QR code generator library -->
       <script type="text/javascript">
