@@ -19,17 +19,18 @@
       <input id="text" type="text" value="<%= request.base_url + @room.invite_path %>" style="width:100%" /><br />
 
       <!-- Element which is the target to paint the QR code -->
-      <div class="row">
-        <div id="qrcode" style="width:200px; height:200px; margin-top:20px; margin-left:auto; margin-right: auto"></div>
-      </div>
+      <table>
+        <tr>
+        <td id="qrcode" style="width:200px; height:200px; padding: 20px"></td>
+        <td style="white-space: pre-line; font-size:150%">
+          <%= @room.description %>
+        </td>
+        </tr>
+      </table>
 
       <span style="display:block; height: 1cm;"></span>
 
-      <img src="/BMIBHFoerder_Logo.png" alt="Hier sollte Bundesministeriumslogo zu sehen sein." width="200" align="right">
-
-      <div style="white-space: pre-line; font-size:150%">
-        <%= @room.description %>
-      </div>
+      <img src="/BMIBHFoerder_Logo.png" alt="Hier sollte Bundesministeriumslogo zu sehen sein." width="200" align="left">
 
       <!-- script call to QR code generator library -->
       <script type="text/javascript">
