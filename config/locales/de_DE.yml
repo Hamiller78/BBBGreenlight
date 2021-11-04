@@ -222,8 +222,8 @@ de_DE:
   bigbluebutton_exception: "Ups, beim Start der Konferenz ist ein Fehler aufgetreten!"
   cancel: Abbrechen
   cookies:
-    cookie_info: Cookies helfen uns bei der Bereitstellung unserer Dienste. Durch die Nutzung der Dienste stimmen Sie der Nutzung von Cookies zu.
-    cookie_button: Ich stimme zu
+    cookie_info: Diese Seite verwendet Cookies zur Bereitstellung ihrer Dienste.
+    cookie_button: Verstanden
   copied: Kopiert
   copy: Kopieren
   date:
@@ -640,3 +640,6 @@ de_DE:
     signin: "Bitte melden Sie sich an, um auf Ihr Konto zuzugreifen."
     title: Verifizierung Ihrer E-Mail-Adresse
     verification: Verifikation
+  privacypolicy:
+ #   title: Datenschutzerklärung
+ #   text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
