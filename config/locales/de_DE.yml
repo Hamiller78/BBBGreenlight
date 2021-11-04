@@ -560,6 +560,7 @@ de_DE:
     login: Betreten
     owner: Initiator
     owner_banned: Dieser Raum ist aktuell nicht verfügbar
+    no_recordings: Aufnahmen der Lektion sind nicht gestattet.
     no_room:
       description: "Geben Sie die Raum-URL oder die Raum-ID des Raums ein, den Sie betreten möchten."
       edit_profile: Nutzerprofil bearbeiten
