@@ -320,7 +320,7 @@ de_DE:
       start: Suche beginnen...
   landing:
     about: "Dies ist die digitale Plattform des <a href=\"https://www.drk-heidelberg.de\">DRK-Kreisverband Rhein-Neckar/Heidelberg e.V.</a> für die Durchführung von digitalem Sprachunterricht. Dieser wird für geflüchtete Menschen mit ungeklärter Bleibeperspektive im Rahmen der Erstorientierungskurse angeboten.</br></br>Die Erstorientierungskurse werden vom <a href=\"https://www.bamf.de\">Bundesamt für Migration und Flüchtlinge</a> gefördert. Die digitale Plattform dient zur Ergänzung des Präsenzunterrichts und gewährleistet den Teilnehmern eine bessere Erreichbarkeit zur Lehrkraft. Außerdem kann die Zielgruppe umfangreicher unterstützt werden.</br></br>Die technische Umsetzung wird von der <a href=\"https://www.cgi.com/de/de\">CGI Deutschland B.V. & Co. KG</a> unterstützt."
-    welcome: Willkommen zur Sprachunterrichtsseite des DRK.
+    welcome: Willkommen zur Sprachunterrichtsseite des DRK
     video: Schauen Sie sich die Anleitung zur Verwendung von Greenlight an
     upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
     version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
