@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   # legal
   get '/privacypolicy', to: 'legal#privacypolicy'
+  get '/imprint', to: 'legal#imprint'
 
   # Signin/Signup routes.
   get '/signin', to: 'sessions#signin', as: :signin
