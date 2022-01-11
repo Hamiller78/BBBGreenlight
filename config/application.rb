@@ -186,5 +186,9 @@ module Greenlight
 
     # Max avatar image size
     config.max_avatar_size = ENV['MAX_AVATAR_SIZE'].to_i.zero? ? 100_000 : ENV['MAX_AVATAR_SIZE'].to_i
+
+    # Enable public file server_rooms
+    config.public_file_server.enabled = "true"
+
   end
 end
