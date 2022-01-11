@@ -123,8 +123,7 @@ $(document).on('turbolinks:load', function(){
       if(element.is('#room-title')){
         submit_update_request({
           setting: "rename_header",
-          name: $('#user-text').text(),
-          description: $("#user-description").val(),
+          name: element.find('#user-text').text(),
         }, element.data('path'), "POST");
       }
       else if(element.is('#recording-title')){

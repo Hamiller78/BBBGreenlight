@@ -24,10 +24,6 @@ Rails.application.routes.draw do
   match '/404', to: 'errors#not_found', via: :all, as: :not_found
   match '/500', to: 'errors#internal_error', via: :all, as: :internal_error
 
-  # legal
-  get '/privacypolicy', to: 'legal#privacypolicy'
-  get '/imprint', to: 'legal#imprint'
-
   # Signin/Signup routes.
   get '/signin', to: 'sessions#signin', as: :signin
   get '/signup', to: 'sessions#new', as: :signup
@@ -138,7 +134,6 @@ Rails.application.routes.draw do
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
     post '/login', to: 'rooms#login', as: :login_room
-    get '/printinfo', to: 'rooms#printinfo'
   end
 
   # Recording operations routes

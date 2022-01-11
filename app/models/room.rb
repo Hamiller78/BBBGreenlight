@@ -26,7 +26,6 @@ class Room < ApplicationRecord
   before_destroy :destroy_presentation
 
   validates :name, presence: true
-  validates :description, presence: true
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_many :shared_access
@@ -79,11 +78,6 @@ class Room < ApplicationRecord
   # Determines the invite path for the room.
   def invite_path
     "#{Rails.configuration.relative_url_root}/#{CGI.escape(uid)}"
-  end
-
-  # Determines the printinfo path for the room
-  def printinfo_path
-    "#{Rails.configuration.relative_url_root}/#{CGI.escape(uid)}/printinfo"
   end
 
   # Notify waiting users that a meeting has started.
