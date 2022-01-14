@@ -1,4 +1,4 @@
-FROM ruby:2.5.1-alpine AS base
+FROM ruby:2.7.2-alpine AS base
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
@@ -23,10 +23,12 @@ COPY Gemfile* ./
 COPY Gemfile Gemfile.lock $RAILS_ROOT/
 
 RUN bundle config --global frozen 1 \
-    && bundle install --deployment --without development:test:assets -j4 --path=vendor/bundle \
-    && rm -rf vendor/bundle/ruby/2.5.0/cache/*.gem \
-    && find vendor/bundle/ruby/2.5.0/gems/ -name "*.c" -delete \
-    && find vendor/bundle/ruby/2.5.0/gems/ -name "*.o" -delete
+    && bundle config set deployment 'true' \
+    && bundle config set without 'development:test:assets' \
+    && bundle install -j4 --path=vendor/bundle \
+    && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
+    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
+    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
 
 # Adding project files.
 COPY . .
@@ -36,7 +38,7 @@ RUN rm -rf tmp/cache spec
 
 ############### Build step done ###############
 
-FROM ruby:2.5.1-alpine
+FROM ruby:2.7.2-alpine
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
@@ -61,5 +63,15 @@ EXPOSE 80
 ARG version_code
 ENV VERSION_CODE=$version_code
 
+# Set executable permission to start file
+RUN chmod +x bin/start
+# Update HTTPClient cacert.pem with the latest Mozilla cacert.pem
+RUN wget https://curl.se/ca/cacert.pem https://curl.se/ca/cacert.pem.sha256 -P /tmp
+RUN cd /tmp && sha256sum cacert.pem > cacert.pem.sha256sum && cd ${RAILS_ROOT}
+RUN diff /tmp/cacert.pem.sha256sum /tmp/cacert.pem.sha256
+RUN mv -v /tmp/cacert.pem $(bundle info httpclient --path)/lib/httpclient/ && rm -v /tmp/cacert*
+
+# Update Openssl certs [This is for Faraday adapter for Net::HTTP]
+RUN [[ $(id -u) -eq 0 ]] && update-ca-certificates
 # Start the application.
 CMD ["bin/start"]

@@ -54,27 +54,27 @@ RSpec.configure do |config|
       .with(
         headers:
         {
-          'Accept': '*/*',
+          Accept: '*/*',
           'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'User-Agent': 'Ruby',
         }
       )
       .to_return(status: 200, body: "", headers: {})
-    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api'}/)
+    stub_request(:any, /#{"#{ENV['LOADBALANCER_ENDPOINT']}api"}/)
       .with(
         headers:
         {
-          'Accept': '*/*',
+          Accept: '*/*',
           'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'User-Agent': 'Ruby',
         }
       )
       .to_return(status: 200, body: "", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
-    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api\/getUser'}/)
+    stub_request(:any, /#{"#{ENV['LOADBALANCER_ENDPOINT']}api\\/getUser"}/)
       .with(
         headers:
         {
-          'Accept': '*/*',
+          Accept: '*/*',
           'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'User-Agent': 'Ruby',
         }
@@ -90,11 +90,11 @@ RSpec.configure do |config|
             <secret>secret</secret>
           </user>
         </response>", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
-    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api2\/getUserGreenlightCredentials'}/)
+    stub_request(:any, /#{"#{ENV['LOADBALANCER_ENDPOINT']}api2\\/getUserGreenlightCredentials"}/)
       .with(
         headers:
         {
-          'Accept': '*/*',
+          Accept: '*/*',
           'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'User-Agent': 'Ruby',
         }
@@ -158,7 +158,7 @@ RSpec.configure do |config|
   # Allows RSpec to persist some state between runs in order to support
   # the `--only-failures` and `--next-failure` CLI options. We recommend
   # you configure your source control system to ignore this file.
-  # config.example_status_persistence_file_path = "spec/examples.txt"
+  config.example_status_persistence_file_path = "spec/failures.txt"
 
   # Limits the available syntax to the non-monkey patched syntax that is
   # recommended. For more details, see:

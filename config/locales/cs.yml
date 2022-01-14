@@ -28,6 +28,7 @@ cs:
     errors:
       models:
         user:
+          password: nesplňovalo požadovanou složitost
           confirmation: Hesla nejsou shodná
   administrator:
     site_settings:
@@ -69,6 +70,10 @@ cs:
         regular: Hlavní barva
         lighten: Světlá barva
         darken: Tmavá barva
+      email_mapping:
+        info: "Přiřaď uživateli roli podle e-mailu. Musí být ve formátu: email1=role1,email2=role2"
+        title: Mapování rolí podle e-mailu
+        update:
       log_level:
         title: Úroveň logování
         information: "Změní úroveň pro celý server "
@@ -90,7 +95,7 @@ cs:
         title: Informace o údržbě
         display: Nastavit
         clear: Vyčistit
-        time: "Příklad: Údržba systému je naplánovaná na 13. prosince ve 23:00.\nUživatelé mohou mít potíže s přihlášením do systému."        
+        time: "Příklad: Údržba systému je naplánovaná na 13. prosince ve 23:00.\nUživatelé mohou mít potíže s přihlášením do systému."
       preupload:
         info: "Uživatelé mohou nahrát prezentaci, která bude použita jako výchozí prezentace pro vybranou místnost."
         title: Povolit uživatelům nahrát výchozí prezentaci
@@ -111,6 +116,7 @@ cs:
       tabs:
         appearance: Vzhled
         administration: Administrace
+        registration: Registrace
         settings: Nastavení
       title: Nastavení serveru
     flash:
@@ -133,11 +139,14 @@ cs:
       settings: Nastavení serveru úspěšně změněno
       unauthorized: Nemáte dostatečná oprávnění k provedení akce.
     recordings:
+      latest: Poslední nahrávky
       title: Uložené nahrávky
       no_recordings: Na serveru dosud nejsou uloženy žádné nahrávky
+      search_info: Vložte uživatelův e-mail nebo identifikátor místnosti
     roles:
       appear_in_share_list: Uživatelé s touto rolí mohou sdílet místnost.
       can_create_rooms: Uživatel může vytvářet místnosti
+      can_launch_recording: Povolit uživatelům role zaznamenávat jejich setkání
       delete: Smazat roli
       invalid_create: Nastal problém při vytváření nové role. Zkontrolujte prosím vstupní údaje a zkuste to znovu
       invalid_order: Nastal problém při změně priority role. Zkontrolujte nastavené hodnoty a zkuste to znovu
@@ -168,6 +177,9 @@ cs:
         info: Přiděl práva moderátora všem uživatelům ihned po připojení.
       recordings:
         info: "Povolit vlastníkům místnosti určit, zda chtějí mít volbu nahrávat místnost nebo nikoliv. Pokud je zapnuto, přesto musí moderátor kliknout na tlačítko \"Zahájit nahrávání\"."
+      moderator_codes:
+        info: "Povol vlastníkovi generovat pin moderátora, který umožňuje ostatním uživatelům se připojit přímo jako moderátor."
+        title: Přístupový pin moderátora
       options:
         disabled: Vypnuto
         enabled: Vždy zapnuto
@@ -219,6 +231,7 @@ cs:
   cookies:
     cookie_info: Cookies nám pomáhají poskytovat naše služby. Používáním našich služeb souhlasíte s jejich použitím.
     cookie_button: Souhlasím
+    policy: "Více informací najdete v <a href=\"%{privacy_link}\"><u> zásadách ochrany osobních údajů</u></a>."
   copied: Zkopírováno
   copy: Kopírovat
   date:
@@ -257,6 +270,7 @@ cs:
       accepted: musí být odsouhlaseno
       confirmation: "nejsou shodná %{attribute}"
       inclusion: není v seznamu
+      domain: "musí končit s \"%{email_domain}\""
     no_provider:
       message: Stránka není aktivní
       help: "Kontaktujte prosím administrátora, aby nastavil Greenlight"
@@ -301,6 +315,7 @@ cs:
   home_room: Domovská místnost
   info_update_success: Informace byly úspěšně uloženy.
   invalid_credentials: "Zadané přihlašování jméno nebo heslo je nesprávné. Zkuste to znovu, nebo klikněte na možnost 'Zapomenuté heslo' pro reset hesla."
+  invalid_credentials_external: "Vloženená emailová adresa a heslo se neshodují s našimi záznamy. Prosím, zkuste ještě jednou."
   invalid_login_method: Přihlášení selhalo z důvodu problému s účtem. Musíte se přihlásit přes omniauth.
   invite_message: "Další osoby pozvete na konferenci tím, že jim zašlete následující odkaz:"
   javascript:
@@ -321,6 +336,8 @@ cs:
   language_default: Výchozí (jazyk webového prohlížeče)
   ldap_error: "Není možné připojit se k LDAP serveru. Prosím zkontrolujte LDAP konfiguraci v souboru .env a zkontrolujte, že LDAP server běží."
   login: Přihlásit
+  login_page:
+    locked_out: "Váš účet byl zamknut kvůli příliš mnoho neúspěšným pokusům zadat heslo. Prosím, zkuste později."
   login_title: Přihlašte se ke svému účtu
   mailer:
     user:
@@ -345,6 +362,7 @@ cs:
         info: " Byl jste pozván do Vašeho osobního prostoru uživatelem %{name}"
         signup_info: "Pro registraci Vaším emailem, klikněte na tlačítko níže a postupujte podle předepsaných kroků."
         signup_link: Registrace
+        valid: "Pozvánka je platná do: %{date}"
         signup:
           info: Pozvaný Greenlight uživatel se zaregistroval.
           admins_link: Navštivte stránku Organizace
@@ -383,7 +401,11 @@ cs:
       title: Vytvořit novou roli
     create_room:
       access_code: Přístupový kód
+      moderator_access_code: PIN moderátora
       access_code_placeholder: Vygenerovat volitelný přístupový kód
+      reset_access_code: Reset dodatečného přístupového hesla do místnosti
+      moderator_access_code_placeholder: Generuj pin moderátora.
+      reset_moderator_access_code: Reset dodatečného hesla pro moderátory
       auto_join: Připojit mne automaticky do místnosti
       create: Vytvořit místnost
       free_delete: Tuto místnost můžete kdykoliv odstranit.
@@ -472,6 +494,7 @@ cs:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: Nepodařilo se nám ověřit Vaši odpověď na reCAPTCHA. Zkuste to prosím znovu.
@@ -480,9 +503,11 @@ cs:
     all_recordings: Všechny nahrávky
     email: Poslat nahrávku e-mailem
     error: " Nastala chyba při stahování%{count} nahrávek"
-    no_recordings: "Tato místnost nemá %{inject}nahrávky."
+    no_public_recordings: Místnost nemá veřejné nahrávky.
+    no_recordings: Místnost nemá žádné nahrávky.
     no_user_recordings: Nemáte žádné nahrávky.
-    no_matched_recordings: " Nenalezeny vyhovující%{inject} nahrávky."
+    no_matched_pub_recordings: Nepodařilo se najít žádné veřejné nahrávky.
+    no_matched_recordings: Nepodařilo se najít žádné nahrávky.
     recorded_on: "Záznam z %{date}"
     table:
       name: Jméno
@@ -492,6 +517,7 @@ cs:
       visibility: Viditelnost
       formats: Formáty
     visibility:
+      inaccessible: Nepřístupné
       public: Veřejné
       unlisted: Neveřejné
     format:
@@ -514,9 +540,12 @@ cs:
     invite:
       fail: "Váš token je neplatný, nebo jeho platnost vypršela. Pokud si myslíte, že jde o omyl, kontaktujte prosím administrátora."
       no_invite: "Nemáte pozvánku k registraci. Abyste ji získali, kontaktujte prosím administrátora."
+    insecure_password: Kvůli zvýšení zabezpečení byl zvýšen požadavek na složitost hesla. Prosím zadejte nové heslo splňující požadavky níže.
   remove: Odstranit
   rename: Přejmenovat
   reset_password:
+    captcha: "Ověření reCAPTCHA selhalo, zkuste to prosím znovu."
+    complexity: Heslo nesplňuje požadavek na složitost
     invalid_token: Token resetu hesla je neplatný. Prosím proveďte reset svého hesla ještě jednou.
     subtitle: Resetovat heslo
     password: Nové heslo
@@ -529,11 +558,13 @@ cs:
     banned: Zablokovaní
     deleted: Smazaní
     pending: Čekající
+    invited: Pozván
     user: Uživatel
   room:
     access_code_required: Prosím zadejte platný přístupový kód pro vstup do místnosti
     add_presentation: Přidat prezentaci
     copy_access: Zkopíruj přístupový kód
+    copy_moderator_access: Zkopíruj pin moderátora
     create_room: Vytvořit místnost
     create_room_error: Při vytváření místnosti nastala chyba
     create_room_success: Místnost byla úspěšně vytvořena
@@ -542,8 +573,10 @@ cs:
       success: Místnost byla smazána
       fail: "Nepodařilo se smazat místnost (%{error})"
     enter_the_access_code: Vložte přístupový kód do místnosti
+    enter_the_moderator_access_code: Vlož pin moderátora k místnosti!
+    optional_moderator_access_code: "Volitelný pin moderátora"
     invalid_provider: Vložili jste neplatné url. Prosím zkontrolujte url a zkuste to znovu.
-    invitation_description: "Byl jste pozván na videokonferenci%{name} v BigBlueButton. K připojení do místnosti klikněte na odkaz výše a zadejte svoje jméno."  
+    invitation_description: "Byl jste pozván na videokonferenci%{name} v BigBlueButton. K připojení do místnosti klikněte na odkaz výše a zadejte svoje jméno."
     invited: Byl jste pozván na konferenci v místnosti
     recording_present: Souhlasím s nahráváním sezení v místnosti včetně mého hlasu a web kamery pokud jsou zapnuté.
     invite_participants: Pozvánka pro účastníky
@@ -620,6 +653,9 @@ cs:
     title: Podmínky
   test_install: >
     Tato instalace používá konfiguraci testovacího serveru, měli byste ji nahradit vlastní. Pro více detailů si pozorně %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Aktualizovat
   verify:
     accept: Ověřit

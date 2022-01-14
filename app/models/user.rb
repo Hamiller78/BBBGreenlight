@@ -28,7 +28,7 @@ class User < ApplicationRecord
   before_destroy :destroy_rooms
 
   has_many :rooms
-  has_many :shared_access
+  has_many :shared_access, dependent: :destroy
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
   has_and_belongs_to_many :roles, join_table: :users_roles # obsolete
@@ -39,13 +39,17 @@ class User < ApplicationRecord
                    format: { without: %r{https?://}i }
   validates :provider, presence: true
   validate :check_if_email_can_be_blank
+  validate :check_domain, if: :greenlight_account?, on: :create
   validates :email, length: { maximum: 256 }, allow_blank: true,
                     uniqueness: { case_sensitive: false, scope: :provider },
-                    format: { with: /\A[\w+\-\'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+                    format: { with: /\A[\w+\-'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
-  validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?, on: :create
+  validates :password, length: { minimum: 8 },
+            format: /\A(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}\z/,
+            confirmation: true,
+            if: :validate_password?
 
-  # Bypass validation if omniauth
+  # Bypass validations if omniauth
   validates :accepted_terms, acceptance: true,
                              unless: -> { !greenlight_account? || !Rails.configuration.terms }
 
@@ -54,6 +58,7 @@ class User < ApplicationRecord
 
   class << self
     include AuthValues
+    include Queries
 
     # Generates a user from omniauth.
     def from_omniauth(auth)
@@ -69,48 +74,46 @@ class User < ApplicationRecord
         u.save!
       end
     end
-  end
 
-  def self.admins_search(string)
-    return all if string.blank?
+    def admins_search(string)
+      return all if string.blank?
 
-    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
-    # Postgres requires created_at to be cast to a string
-    created_at_query = if active_database == "postgresql"
-      "created_at::text"
-    else
-      "created_at"
+      like = like_text # Get the correct like clause to use based on db adapter
+
+      search_query = "users.name #{like} :search OR email #{like} :search OR username #{like} :search" \
+                    " OR users.#{created_at_text} #{like} :search OR users.provider #{like} :search" \
+                    " OR roles.name #{like} :search"
+
+      search_param = "%#{sanitize_sql_like(string)}%"
+      where(search_query, search: search_param)
     end
 
-    search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                  " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search" \
-                  " OR roles.name LIKE :search"
+    def admins_order(column, direction)
+      # Arel.sql to avoid sql injection
+      order(Arel.sql("users.#{column} #{direction}"))
+    end
 
-    search_param = "%#{sanitize_sql_like(string)}%"
-    where(search_query, search: search_param)
-  end
+    def shared_list_search(string)
+      return all if string.blank?
 
-  def self.admins_order(column, direction)
-    # Arel.sql to avoid sql injection
-    order(Arel.sql("users.#{column} #{direction}"))
-  end
+      like = like_text # Get the correct like clause to use based on db adapter
 
-  def self.shared_list_search(string)
-    return all if string.blank?
+      search_query = "users.name #{like} :search OR users.uid #{like} :search"
 
-    search_query = "users.name LIKE :search OR users.uid LIKE :search"
+      search_param = "%#{sanitize_sql_like(string)}%"
+      where(search_query, search: search_param)
+    end
 
-    search_param = "%#{sanitize_sql_like(string)}%"
-    where(search_query, search: search_param)
-  end
+    def merge_list_search(string)
+      return all if string.blank?
 
-  def self.merge_list_search(string)
-    return all if string.blank?
+      like = like_text # Get the correct like clause to use based on db adapter
 
-    search_query = "users.name LIKE :search OR users.email LIKE :search"
+      search_query = "users.name #{like} :search OR users.email #{like} :search"
 
-    search_param = "%#{sanitize_sql_like(string)}%"
-    where(search_query, search: search_param)
+      search_param = "%#{sanitize_sql_like(string)}%"
+      where(search_query, search: search_param)
+    end
   end
 
   # Returns a list of rooms ordered by last session (with nil rooms last)
@@ -159,7 +162,7 @@ class User < ApplicationRecord
 
   def name_chunk
     charset = ("a".."z").to_a - %w(b i l o s) + ("2".."9").to_a - %w(5 8)
-    chunk = name.parameterize[0...3]
+    chunk = name.parameterize(separator: "")[0...3]
     if chunk.empty?
       chunk + (0...3).map { charset.to_a[rand(charset.size)] }.join
     elsif chunk.length == 1
@@ -216,6 +219,19 @@ class User < ApplicationRecord
     update_attributes(main_room: room)
   end
 
+  # returns true if the user has attempted to log in too many times in the past 24 hours
+  def locked_out?
+    attempts = failed_attempts.to_i
+    within_1_day = (24.hours.ago..DateTime.now).cover?(last_failed_attempt)
+
+    return true if attempts > 5 && within_1_day
+
+    # reset the counter if the last login attempt was more than 1 day ago
+    update(failed_attempts: 0) if attempts.positive? && !within_1_day
+
+    false
+  end
+
   private
 
   # Destory a users rooms when they are removed.
@@ -235,6 +251,13 @@ class User < ApplicationRecord
     Role.create_default_roles(role_provider) if Role.where(provider: role_provider).count.zero?
   end
 
+  def check_domain
+    if Rails.configuration.require_email_domain.any? && !email.end_with?(*Rails.configuration.require_email_domain)
+      errors.add(:email, I18n.t("errors.messages.domain",
+        email_domain: Rails.configuration.require_email_domain.join("\" #{I18n.t('modal.login.or')} \"")))
+    end
+  end
+
   def check_if_email_can_be_blank
     if email.blank?
       if Rails.configuration.loadbalanced_configuration && greenlight_account?
@@ -243,6 +266,13 @@ class User < ApplicationRecord
         errors.add(:email, I18n.t("errors.messages.blank"))
       end
     end
+  end
+
+  def validate_password?
+    return false unless greenlight_account?
+    return true if new_record?
+    return true if persisted? && will_save_change_to_password_digest?
+    false
   end
 
   def role_provider

@@ -3,11 +3,9 @@ AllCops:
   - 'db/schema.rb'
   - 'vendor/**/*'
   DisabledByDefault: false
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.7
 
-# Gems within groups in the Gemfile should be alphabetically sorted.
-Bundler/OrderedGems:
-  Enabled: false
+  NewCops: enable
 
 Style/BlockDelimiters:
   Enabled: false
@@ -133,12 +131,12 @@ Metrics/ModuleLength:
 # A calculated magnitude based on number of assignments,
 # branches, and conditions.
 Metrics/AbcSize:
-  Max: 60
+  Max: 65
 
 # A complexity metric that is strongly correlated to the number
 # of test cases needed to validate a method.
 Metrics/CyclomaticComplexity:
-  Max: 17
+  Max: 20
 
 # Checks for method parameter names that contain capital letters, end in numbers, or do not meet a minimal length.
 Naming/MethodParameterName:
@@ -176,4 +174,18 @@ Style/HashTransformValues:
   
 Style/SlicingWithRange:
   Enabled: true
-  
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+Lint/DuplicateBranch: 
+  Enabled: false
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Enabled: false
+
+Style/HashLikeCase:
+  Enabled: false

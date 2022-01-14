@@ -19,7 +19,7 @@
 require "rails_helper"
 
 def random_valid_user_params
-  pass = Faker::Internet.password(min_length: 8)
+  pass = "#{Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)}1aB"
   {
     user: {
       name: Faker::Name.first_name,
@@ -237,7 +237,6 @@ describe UsersController, type: :controller do
 
         it "allows the user to signup if they are invited" do
           allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
-
           params = random_valid_user_params
           invite = Invitation.create(email: params[:user][:name], provider: "greenlight")
           @request.session[:invite_token] = invite.invite_token
@@ -416,7 +415,7 @@ describe UsersController, type: :controller do
         tmp_role1.update_permission("send_promoted_email", "true")
 
         params = random_valid_user_params
-        params = params.merge!(user_uid: user, user: { role_id: tmp_role1.id.to_s })
+        params.merge!(user_uid: user, user: { role_id: tmp_role1.id.to_s })
 
         expect { post :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
 
@@ -440,7 +439,7 @@ describe UsersController, type: :controller do
         @request.session[:user_id] = admin.id
 
         params = random_valid_user_params
-        params = params.merge!(user_uid: user, user: { role_id: new_role.id.to_s })
+        params.merge!(user_uid: user, user: { role_id: new_role.id.to_s })
 
         expect(user.role.name).to eq("test1")
         expect(user.main_room).to be_nil
@@ -458,7 +457,7 @@ describe UsersController, type: :controller do
   describe "POST #update_password" do
     before do
       @user = create(:user)
-      @password = Faker::Internet.password(min_length: 8)
+      @password = "#{Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)}1aB"
     end
 
     it "properly updates users password" do
@@ -503,7 +502,7 @@ describe UsersController, type: :controller do
         user: {
           password: "incorrect_password",
           new_password: @password,
-          password_confirmation: @password + "_random_string",
+          password_confirmation: "#{@password}_random_string",
         }
       }
       post :update_password, params: params.merge!(user_uid: @user)
@@ -603,6 +602,20 @@ describe UsersController, type: :controller do
 
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(admins_path)
+    end
+
+    it "allows user deletion with shared access to rooms" do
+      owner = create(:user)
+      guest = create(:user)
+      room  = create(:room, owner: owner)
+      SharedAccess.create(room_id: room.id, user_id: guest.id)
+
+      @request.session[:user_id] = guest.id
+      delete :destroy, params: { user_uid: guest.uid }
+
+      expect(User.include_deleted.find_by(uid: guest.uid)).to be_nil
+      expect(SharedAccess.exists?(room_id: room.id, user_id: guest.id)).to be false
+      expect(response).to redirect_to(root_path)
     end
   end
 
