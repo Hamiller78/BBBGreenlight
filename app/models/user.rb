@@ -45,9 +45,11 @@ class User < ApplicationRecord
                     format: { with: /\A[\w+\-'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   validates :password, length: { minimum: 8 },
-            format: /\A(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}\z/,
+            format: /\A.{8,}\z/,
             confirmation: true,
             if: :validate_password?
+  
+  # Format for complex passowrd would be /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&:.])[A-Za-z\d@$!%*?&:.]{8,}\z/           
 
   # Bypass validations if omniauth
   validates :accepted_terms, acceptance: true,
