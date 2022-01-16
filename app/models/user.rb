@@ -44,7 +44,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false, scope: :provider },
                     format: { with: /\A[\w+\-'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
-  validates :password, length: { minimum: 8 },
+  validates :password, length: { minimum: 6 },
             format: /\A.{8,}\z/,
             confirmation: true,
             if: :validate_password?
