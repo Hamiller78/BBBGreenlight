@@ -331,6 +331,8 @@ en:
   landing:
     about: "This is the digital platform of the <a href=\"https://www.drk-heidelberg.de\">German Red Cross section of Rhein-Neckar/Heidelberg e.V.</a> for online language classes. These classes are offered for refugees as a part of first orientation courses.</br></br>The first orientation courses are supported by the <a href=\"https://www.bamf.de\">Federal Office for Migration and Refugees</a>. The digital platform serves as a supplement to in-classroom teaching and offers the participants a better accessibility of the teaching staff. Furthermore the target group can be aided more extensively.</br></br>The technical realisation is supported by <a href=\"https://www.cgi.com/de/de\">CGI Deutschland B.V. & Co. KG.</a>"
     welcome: Welcome to the language course site of the Red Cross
+    drk_about: "This is the digital platform of the <a href=\"https://www.drk-heidelberg.de\">German Red Cross section of Rhein-Neckar/Heidelberg e.V.</a> for online language classes. These classes are offered for refugees as a part of first orientation courses.</br></br>The first orientation courses are supported by the <a href=\"https://www.bamf.de\">Federal Office for Migration and Refugees</a>. The digital platform serves as a supplement to in-classroom teaching and offers the participants a better accessibility of the teaching staff. Furthermore the target group can be aided more extensively.</br></br>The technical realisation is supported by <a href=\"https://www.cgi.com/de/de\">CGI Deutschland B.V. & Co. KG.</a>"
+    drk_welcome: Welcome to the language course site of the Red Cross    
     video: Watch our tutorial on using Greenlight
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
@@ -647,6 +649,7 @@ en:
   signup:
     password_confirm: Password Confirmation
     subtitle: Create an Account
+    drk_hint: An account is only necessary for teachers.
     title: Sign up
     with: Sign up with %{provider}
   terms:
