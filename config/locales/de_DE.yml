@@ -645,13 +645,13 @@ de_DE:
       new: Neues Passwort
       old: Altes Passwort
       subtitle: Passwort ändern
-      drk_hint: Ein Konto ist nur für Lehrer notwendig.
       title: Passwort
     title: Profil
     search: Suche
   signup:
     password_confirm: Passwortbestätigung
     subtitle: Konto erstellen
+    drk_hint: Ein Konto ist nur für Lehrer notwendig.    
     title: Registrieren
     with: "Registrieren mit %{provider}"
   terms:
